@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig = {
+  reactStrictMode: false,
+  env: {
+    NEXT_PUBLIC_API_BASE_URL: 'http://127.0.0.1:8000',
+    NEXT_PUBLIC_MOD_API_KEY: 'iGLAjBnHoKzczpF56FUye4SCO-J5MysZlVaLUffCpwg'
+  }
+}
 
-export default nextConfig;
+module.exports = nextConfig
