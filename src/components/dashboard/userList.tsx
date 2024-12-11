@@ -95,7 +95,7 @@ export default function UserList() {
     
         parseJwt(token);
     }, []);
-    
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -222,169 +222,174 @@ export default function UserList() {
     }
   };
 
-  if (loading) return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-50 to-purple-50"
-    >
-      <motion.div
-        animate={{ 
-          scale: [1, 1.1, 1],
-          rotate: [0, 5, -5, 0]
-        }}
-        transition={{ 
-          duration: 1,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="text-2xl font-bold text-indigo-600 flex items-center"
-      >
-        <Loader2 className="mr-3 animate-spin" size={32} />
-        Loading Users...
-      </motion.div>
-    </motion.div>
-  );
+      if (loading) return (
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-50 to-purple-50"
+        >
+            <motion.div
+                animate={{ 
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0]
+                }}
+                transition={{ 
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+                className="text-base md:text-2xl font-bold text-indigo-600 flex items-center"
+            >
+                <Loader2 className="mr-2 md:mr-3 animate-spin" size={24} />
+                Loading Users...
+            </motion.div>
+        </motion.div>
+    );
 
-  if (error) return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-red-500 text-center mt-10 bg-red-50 p-4 rounded-lg"
-    >
-      Error: {error}
-    </motion.div>
-  );
+    if (error) return (
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-red-500 text-center mt-10 bg-red-50 p-4 rounded-lg"
+        >
+            Error: {error}
+        </motion.div>
+    );
 
   return (
     <>
-            <motion.div 
+    <motion.div 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 sm:px-8 bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen"
-      >
-        <div className="py-8">
-          <div className="flex justify-between items-center mb-4">
-            <motion.h2 
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"
-            >
-              User Management
-            </motion.h2>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-              className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                isLoggingOut 
-                  ? 'bg-gray-400 text-white cursor-not-allowed' 
-                  : 'bg-red-500 hover:bg-red-700 text-white'
-              }`}
-            >
-              {isLoggingOut ? (
-                <>
-                  <Loader2 className="mr-2 animate-spin" size={20} />
-                  Logging Out...
-                </>
-              ) : (
-                <>
-                  <LogOut size={20} />
-                  <span>Logout</span>
-                </>
-              )}
-            </motion.button>
-          </div>
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto"
-          >
-            <div className="inline-block min-w-full shadow-lg rounded-lg overflow-hidden bg-white">
-              <table className="min-w-full leading-normal">
-                <thead className="bg-gradient-to-r from-indigo-100 to-purple-100">
-                  <tr>
-                    {['Username', 'Email', 'Roles', 'Identifier', 'Status', 'Actions'].map((header) => (
-                      <th 
-                        key={header}
-                        className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                      >
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                {users.map((user) => (
-                <motion.tr 
-                    key={user.identifier}
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`${
-                      user.id 
-                        ? 'hover:bg-indigo-50' 
-                        : 'bg-yellow-50 hover:bg-yellow-100'
-                    } transition-colors duration-200`}
+        className="container mx-auto px-2 sm:px-4 md:px-8 bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen"
+    >
+        <div className="py-4 md:py-8">
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+                <motion.h2 
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4 sm:mb-0"
                 >
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        {user.username || user.externalData?.fullNameWithRole || 'N/A'}
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        {user.email || 'N/A'}
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        {user.role?.join(', ') || user.externalData?.role || 'N/A'}
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        {user.identifier}
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        <span className={`
-                          px-2 py-1 rounded-full text-xs font-semibold
-                          ${user.id 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'}
-                          ${user.externalData?.isActive === false ? 'bg-red-100 text-red-800' : ''}
-                        `}>
-                          {user.id ? 'Registered' : 'Not Registered'}
-                          {user.externalData?.isActive === false && ' (Inactive)'}
-                        </span>
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                        {user.id ? (
-                            <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => openPasswordChangeModal(user)}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded transition-colors duration-300"
-                            >
-                            Change Password
-                            </motion.button>
-                        ) : (
-                            <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => openRegistrationModal(user)}
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded transition-colors duration-300"
-                            >
-                            Register User
-                            </motion.button>
-                        )}
-                        </td>
-                    </motion.tr>
-                    ))}
-                </tbody>
-              </table>
+                    User Management
+                </motion.h2>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleLogout}
+                    disabled={isLoggingOut}
+                    className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                        isLoggingOut 
+                            ? 'bg-gray-400 text-white cursor-not-allowed' 
+                            : 'bg-red-500 hover:bg-red-700 text-white'
+                    }`}
+                >
+                    {isLoggingOut ? (
+                        <>
+                            <Loader2 className="mr-2 animate-spin" size={20} />
+                            Logging Out...
+                        </>
+                    ) : (
+                        <>
+                            <LogOut size={20} />
+                            <span>Logout</span>
+                        </>
+                    )}
+                </motion.button>
             </div>
-          </motion.div>
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="-mx-2 sm:-mx-4 md:-mx-8 px-2 sm:px-4 md:px-8 py-4 overflow-x-auto"
+            >
+                <div className="inline-block min-w-full shadow-lg rounded-lg overflow-hidden bg-white">
+                    <table className="min-w-full leading-normal">
+                        <thead className="bg-gradient-to-r from-indigo-100 to-purple-100">
+                            <tr>
+                                {['Username', 'Email', 'Roles', 'Identifier', 'Status', 'Actions'].map((header) => (
+                                    <th 
+                                        key={header}
+                                        className="px-2 sm:px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden md:table-cell"
+                                    >
+                                        {header}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {users.map((user) => (
+                            <motion.tr 
+                                key={user.identifier}
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className={`${
+                                    user.id 
+                                        ? 'hover:bg-indigo-50' 
+                                        : 'bg-yellow-50 hover:bg-yellow-100'
+                                } transition-colors duration-200 block md:table-row`}
+                            >
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm">
+                                    <span className="md:hidden font-bold mr-2">Username:</span>
+                                    {user.username || user.externalData?.fullNameWithRole || 'N/A'}
+                                </td>
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm">
+                                    <span className="md:hidden font-bold mr-2">Email:</span>
+                                    {user.email || 'N/A'}
+                                </td>
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm">
+                                    <span className="md:hidden font-bold mr-2">Roles:</span>
+                                    {user.role?.join(', ') || user.externalData?.role || 'N/A'}
+                                </td>
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm">
+                                    <span className="md:hidden font-bold mr-2">Identifier:</span>
+                                    {user.identifier}
+                                </td>
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm">
+                                    <span className="md:hidden font-bold mr-2">Status:</span>
+                                    <span className={`
+                                        px-2 py-1 rounded-full text-xs font-semibold
+                                        ${user.id 
+                                            ? 'bg-green-100 text-green-800' 
+                                            : 'bg-yellow-100 text-yellow-800'}
+                                        ${user.externalData?.isActive === false ? 'bg-red-100 text-red-800' : ''}
+                                    `}>
+                                        {user.id ? 'Registered' : 'Not Registered'}
+                                        {user.externalData?.isActive === false && ' (Inactive)'}
+                                    </span>
+                                </td>
+                                <td className="block md:table-cell px-2 sm:px-5 py-5 border-b border-gray-200 text-sm text-center md:text-left">
+                                    {user.id ? (
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => openPasswordChangeModal(user)}
+                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded transition-colors duration-300 w-full md:w-auto"
+                                        >
+                                            Change Password
+                                        </motion.button>
+                                    ) : (
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => openRegistrationModal(user)}
+                                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded transition-colors duration-300 w-full md:w-auto"
+                                        >
+                                            Register User
+                                        </motion.button>
+                                    )}
+                                </td>
+                            </motion.tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+            </motion.div>
         </div>
-      </motion.div>
+    </motion.div>
 
       {/* Password Change Modal */}
       <Transition appear show={isPasswordModalOpen} as={Fragment}>
